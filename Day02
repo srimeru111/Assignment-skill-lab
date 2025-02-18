@@ -1,0 +1,104 @@
+1. Medical Insurance Eligibility Checker
+#include <stdio.h>
+#include<string.h>
+void cal(int age,char pre[],int salary)
+{
+if((age<18 && age>60)||(strcmp(pre, "yes") == 0)|| (salary< 25,000))
+{
+    printf("not Eligible for Medical Insurance");
+}
+else
+{
+    printf("Eligible for Medical Insurance");
+}
+}
+int main() {
+    int age,salary;
+    char pre[20];
+ printf("enter age:");
+ scanf("%d",&age);
+ printf("Any Pre-existing Condition? (yes/no):");
+ scanf("%s",pre);
+ printf("Enter Monthly Salary:");
+ scanf("%d",&salary);
+ cal(age,pre,salary);
+
+    return 0;
+}
+2. Toll Tax Calculation Using Switch Case
+  #include <stdio.h>
+#include <string.h>
+
+int main() {
+    int n, totalTax = 0,i;
+    char type[10];
+    printf("Enter number of vehicles: ");
+    scanf("%d", &n);
+    printf("Enter vehicle types:");
+    for(i=0;i<n;i++){
+        scanf("%s", type);
+        switch (type[0]) {
+            case 'C': totalTax += 50; break;  // Car
+            case 'T': totalTax += 100; break; // Truck
+            case 'B':
+                if (strcmp(type, "Bike") == 0)
+                    totalTax += 20;  // Bike
+                else
+                    totalTax += 80;  // Bus
+                break;
+            default:
+               break;
+        }
+    }
+
+    printf("Total Toll Tax: ₹%d\n", totalTax);
+    return 0;
+}
+3.ATM Transaction System
+  #include <stdio.h>
+#include <string.h>
+void withdraw(int balance, int amount) {
+    if (amount > balance) {
+        printf("Insufficient Balance\n");
+    } else {
+        balance -= amount;
+        printf("Transaction Successful. Remaining Balance: %d\n", balance);
+    }
+}
+
+void deposit(int balance, int amount) {
+    balance += amount;
+    printf("Transaction Successful. New Balance: %d\n", balance);
+}
+
+void check_balance(int balance) {
+    printf("Current Balance: %d\n", balance);
+}
+int main() {
+    int choice,balance=10000,amount;
+    printf("Enter your choice:\n1. Withdraw\n2. Deposit\n3. Check Balance\n");
+    printf("Enter your choice: ");
+    scanf("%d",&choice);
+      switch (choice) {
+        case 1:
+            printf("Enter Amount to Withdraw: ");
+            scanf("%d", &amount);
+            withdraw(balance, amount);
+            break;
+        case 2:
+            printf("Enter Amount to Deposit: ");
+            scanf("%d", &amount);
+            deposit(balance, amount);
+            break;
+        case 3:
+            check_balance(balance);
+            break;
+        default:
+            printf("Invalid Choice\n");
+            break;
+    }
+ 
+    return 0;
+}
+  
+  
