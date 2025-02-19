@@ -1,0 +1,65 @@
+1.Flight Ticket Booking System
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int n, age[20];
+    char name[20][50], destination[20][50];
+
+    printf("Enter number of passengers: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("Passenger %d : ", i + 1);
+        scanf(" %s", name[i]); // Read passenger name
+        scanf("%d", &age[i]); // Read passenger age
+        scanf(" %s", destination[i]); // Read passenger destination
+    }
+
+    // Sorting passengers by destination name (A-Z)
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(destination[i], destination[j]) > 0) {
+                // Swap destination
+                char tempd[50];
+                strcpy(tempd, destination[i]);
+                strcpy(destination[i], destination[j]);
+                strcpy(destination[j], tempd);
+
+                // Swap name
+                char tempname[50];
+                strcpy(tempname, name[i]);
+                strcpy(name[i], name[j]);
+                strcpy(name[j], tempname);
+
+                // Swap age
+                int temp = age[i];
+                age[i] = age[j];
+                age[j] = temp;
+            }
+        }
+    }
+
+    printf("\nSorted List (by destination):\n");
+    for (int i = 0; i < n; i++) {
+        printf("Name: %s\nAge: %d\nDestination: %s\n", name[i], age[i], destination[i]);
+    }
+
+    char search[50];
+    printf("\nEnter destination to search: ");
+    scanf(" %s", search);
+
+    int flag = 0;
+    printf("\nPassengers traveling to %s:\n", search);
+    for (int i = 0; i < n; i++) {
+        if (strcmp(destination[i], search) == 0) {
+            printf("%s (Age: %d)\n", name[i], age[i]);
+            flag = 1;
+        }
+    }
+    if (!flag)
+        printf("None\n");
+
+    return 0;
+}
+2.DNA Sequence Pattern Finder
