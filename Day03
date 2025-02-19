@@ -63,3 +63,70 @@ int main() {
     return 0;
 }
 2.DNA Sequence Pattern Finder
+#include <stdio.h>
+#include <string.h>
+
+// Function to count occurrences of a pattern in the DNA sequence
+int search(char DNA[], char search[]) {
+    int count = 0;
+    int dnalen = strlen(DNA);
+    int selen = strlen(search);
+
+    for (int i = 0; i <= dnalen - selen; i++) {
+        if (strncmp(&DNA[i], search, selen) == 0) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    char DNA[100];
+    char pattern[100];
+    int count;
+
+    printf("Enter DNA Sequence: ");
+    scanf("%s", DNA);
+    printf("Enter pattern to search: ");
+    scanf("%s", pattern);
+
+    count = search(DNA, pattern);
+
+    printf("Pattern found %d time(s) in the DNA sequence.\n", count);
+    return 0;
+}
+3.Cricket Scoreboard System
+#include <stdio.h>
+
+int main() {
+    int a[5];
+    int highest, lowest;
+    int sum = 0;
+
+    printf("Enter scores of 5 matches: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    highest = a[0];
+    lowest = a[0];
+
+    for (int i = 0; i < 5; i++) {
+        if (a[i] > highest) {
+            highest = a[i];
+        }
+        if (a[i] < lowest) {
+            lowest = a[i];
+        }
+        sum += a[i];
+    }
+
+    float avg = sum / 5.0;
+
+    printf("Highest Score: %d\n", highest);
+    printf("Lowest Score: %d\n", lowest);
+    printf("Average Score: %.2f\n", avg);
+
+    return 0;
+}
+
