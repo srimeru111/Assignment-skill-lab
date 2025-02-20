@@ -1,0 +1,146 @@
+1. University Student Record Management
+#include <stdio.h>
+struct student{
+   int Rollno;
+    char Name[250];
+    char Course[250];
+    int Marks;
+};
+typedef struct student stu;
+void save(stu s[],int n){
+    FILE *file;
+    file=fopen("student.txt","w");
+    if(file==NULL){
+        printf("\nError openuing file!\n");
+        return;
+    }
+    for(int i =0;i<n;i++){
+        fprintf(file, "Roll No: %d\nName: %s\nCourse: %s\nMarks: %d\n\n", s[i].Rollno, s[i].Name, s[i].Course, s[i].Marks);
+    }
+    fclose(file);
+     printf("Record saved in \"students.txt\"\n");
+}
+void search(int n,stu s[]){
+    int key;
+    printf("\nEnter Roll No to search:");
+        scanf("%d",&key);
+    for(int i=0;i<n;i++){
+        if(s[i].Rollno==key){
+            printf("Student Found: %s %s %d",s[i].Name,s[i].Course,s[i].Marks);
+            return;
+        }
+    }
+    printf("Student not found\n");
+}
+int main() {
+    int n;
+    stu s[1000];
+    printf("Enter number of students:");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        printf("Student %d (Roll No, Name, Course, Marks):\n",i+1);
+        scanf("%d %s %s %d",&s[i].Rollno,s[i].Name,s[i].Course,&s[i].Marks);
+    }
+    search(n,s);
+    save(s,n);
+    return 0;
+}
+2. Online Shopping Order Processing
+#include <stdio.h>
+struct online{
+   int Order_ID;
+   char Customer_Name[250];
+   char Product[250];
+   int Amount;
+};
+typedef struct online Oder;
+void save( Oder o[],int n){
+    FILE *file;
+    file=fopen("orders.txt","w");
+    if(file==NULL){
+        printf("\nError openuing file!\n");
+        return;
+    }
+    for(int i =0;i<n;i++){
+        fprintf(file, "Order ID: %d\nCustomer Name: %s\nProduct: %s\nAmount: %d\n\n", o[i].Order_ID, o[i].Customer_Name, o[i].Product, o[i].Amount);
+    }
+    fclose(file);
+     printf("\nRecord saved in \"orders.txt\"\n");
+}
+void search(int n,Oder o[]){
+    int key;
+    printf("\nEnter Order ID to search::");
+        scanf("%d",&key);
+    for(int i=0;i<n;i++){
+        if(o[i].Order_ID==key){
+            printf("Oder Found: %s %s %d", o[i].Customer_Name, o[i].Product, o[i].Amount);
+            return;
+        }
+    }
+    printf("Oder not found\n");
+}
+int main() {
+    int n;
+    Oder o[1000];
+    printf("Enter number of orders: ");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        printf("Order  %d (Order ID, Customer Name, Product, and Amount):\n",i+1);
+        scanf("%d %s %s %d",&o[i].Order_ID, o[i].Customer_Name, o[i].Product,&o[i].Amount);
+    }
+    search(n,o);
+    save(o,n);
+    return 0;
+}
+3. Weather Monitoring System
+#include <stdio.h>
+#include <string.h>
+
+struct Weather {
+    int temperature;
+    char city[250];
+    int humidity;
+};
+typedef struct Weather wea;
+
+void save(int n, wea w[]) {
+    FILE *file;
+    file = fopen("weather_data.txt", "w");
+    if (file == NULL) {
+        printf("Error opening the file!\n");
+        return;
+    }
+    for (int i = 0; i < n; i++) {
+        fprintf(file, "City: %s\nTemperature: %d°C\nHumidity: %d%%\n\n", w[i].city, w[i].temperature, w[i].humidity);
+    }
+    fclose(file);
+    printf("Record saved in \"weather_data.txt\"\n");
+}
+
+void search(int n, wea w[]) {
+    char key[250];
+    printf("Enter city name to search: ");
+    scanf("%s", key);
+    for (int i = 0; i < n; i++) {
+        if (strcmp(w[i].city, key) == 0) {
+            printf("Weather in %s: %d°C, %d%% Humidity\n", w[i].city, w[i].temperature, w[i].humidity);
+            return;
+        }
+    }
+    printf("City not found\n");
+}
+
+int main() {
+    int n;
+    wea w[1000];
+    printf("Enter number of cities: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("City %d:\n", i + 1);
+        printf("Enter city name, temperature, and humidity: ");
+        scanf("%s %d %d", w[i].city, &w[i].temperature, &w[i].humidity);
+    }
+    search(n, w);
+    save(n, w);
+    return 0;
+}
