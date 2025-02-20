@@ -1,4 +1,4 @@
-1. Medical Insurance Eligibility Checker
+1.Medical Insurance Eligibility Checker
 #include <stdio.h>
 #include<string.h>
 void cal(int age,char pre[],int salary)
