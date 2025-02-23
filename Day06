@@ -1,0 +1,218 @@
+1. Movie Recommendation System (Sorting by Rating)
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_MOVIES 100
+
+struct Movie {
+    char title[100];
+    float rating;
+};
+typedef struct Movie Movie;
+
+void sort_by_rating(Movie movies[], int n) {
+    int i, j;
+    Movie temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (movies[i].rating < movies[j].rating) {
+                temp = movies[i];
+                movies[i] = movies[j];
+                movies[j] = temp;
+            }
+        }
+    }
+}
+
+Movie* search_by_name(Movie movies[], int n, const char* name) {
+    for (int i = 0; i < n; i++) {
+        if (strcasecmp(movies[i].title, name) == 0) {
+            return &movies[i];
+        }
+    }
+    return NULL;
+}
+
+void print_top_3_movies(Movie movies[], int n) {
+    int top_n = (n < 3) ? n : 3;
+    for (int i = 0; i < top_n; i++) {
+        printf("%s (%.1f)\n", movies[i].title, movies[i].rating);
+    }
+}
+
+int main() {
+    Movie movies[MAX_MOVIES] = {
+        {"Movie A", 8.5},
+        {"Movie B", 9.2},
+        {"Movie C", 7.8}
+    };
+    int n = 3;
+
+    sort_by_rating(movies, n);
+
+    printf("Sorted by Rating:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s (%.1f)\n", movies[i].title, movies[i].rating);
+    }
+
+    const char* search_name = "Movie A";
+    Movie* found_movie = search_by_name(movies, n, search_name);
+    if (found_movie != NULL) {
+        printf("Search '%s': Found (Rating: %.1f)\n", search_name, found_movie->rating);
+    } else {
+        printf("Search '%s': Not Found\n", search_name);
+    }
+
+    printf("Top 3 Movies:\n");
+    print_top_3_movies(movies, n);
+
+    return 0;
+}
+2.Inventory Management System
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ITEMS 100
+
+struct Item {
+    char name[100];
+    int quantity;
+};
+typedef struct Item Item;
+
+void sort_by_quantity(Item items[], int n) {
+    int i, j;
+    Item temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (items[i].quantity > items[j].quantity) {
+                temp = items[i];
+                items[i] = items[j];
+                items[j] = temp;
+            }
+        }
+    }
+    printf("Sorted by Quantity:\n");
+    for (i = 0; i < n; i++) {
+        printf("%s (%d)\n", items[i].name, items[i].quantity);
+    }
+}
+
+int binary_search(Item items[], int n, const char *name) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        int cmp = strcmp(items[mid].name, name);
+        if (cmp == 0) {
+            return mid;
+        } else if (cmp < 0) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+void display_low_stock_items(Item items[], int n) {
+    printf("Low Stock Items (< 5 units):\n");
+    for (int i = 0; i < n; i++) {
+        if (items[i].quantity < 5) {
+            printf("%s (%d)\n", items[i].name, items[i].quantity);
+        }
+    }
+}
+
+int main() {
+    Item items[MAX_ITEMS] = {
+        {"Sugar", 50},
+        {"Salt", 3},
+        {"Oil", 10}
+    };
+    int n = 3;
+
+    sort_by_quantity(items, n);
+
+    const char *search_name = "Oil";
+    int found_index = binary_search(items, n, search_name);
+    if (found_index != -1) {
+        printf("Search '%s': Found (Quantity: %d)\n", search_name, items[found_index].quantity);
+    } else {
+        printf("Search '%s': Not Found\n", search_name);
+    }
+
+    display_low_stock_items(items, n);
+
+    return 0;
+}
+3. Railway Ticket Booking – Seat Availability Search
+#include <stdio.h>
+
+#define MAX_SEATS 100
+
+void sort_seats(int seats[], int n) {
+    int i, j, temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (seats[i] > seats[j]) {
+                temp = seats[i];
+                seats[i] = seats[j];
+                seats[j] = temp;
+            }
+        }
+    }
+}
+
+int binary_search(int seats[], int n, int seat) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (seats[mid] == seat) {
+            return mid;
+        } else if (seats[mid] < seat) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+int next_available_seat(int seats[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (seats[i] != -1) {
+            return seats[i];
+        }
+    }
+    return -1; // No seats available
+}
+
+int main() {
+    int seats[MAX_SEATS] = {45, 12, 78, 23, 56};
+    int n = 5;
+
+    sort_seats(seats, n);
+
+    printf("Sorted by Seat Number:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", seats[i]);
+    }
+    printf("\n");
+
+    int search_seat = 23;
+    int found_index = binary_search(seats, n, search_seat);
+    if (found_index != -1) {
+        printf("Search Seat %d: Found (Available)\n", search_seat);
+    } else {
+        printf("Search Seat %d: Not Found\n", search_seat);
+    }
+
+    int next_seat = next_available_seat(seats, n);
+    if (next_seat != -1) {
+        printf("Next Available Seat: %d\n", next_seat);
+    } else {
+        printf("No seats available.\n");
+    }
+
+    return 0;
+}
